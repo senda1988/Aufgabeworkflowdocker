@@ -16,10 +16,11 @@ jobs:
                 chmod 600 ~/.ssh/meinPrivateKey
                 ssh-keyscan -H ${{secrets.EC2_IP}} >> ~/.ssh/known_hosts
 
-            - name: SSH connection
-              run: |
-               ssh -i ~/.ssh/meinPrivateKey ubuntu@${{ secrets.EC2_IP }} "mkdir -p ~/Aufgabeworkflowdocker"
-               scp -i ~/.ssh/meinPrivateKey Aufgabeworkflowdocker/info.txt ubuntu@${{ secrets.EC2_IP }}:~/Aufgabeworkflowdocker/info.txt
-               ssh -i ~/.ssh/meinPrivateKey ubuntu@${{ secrets.EC2_IP }} "ls -l ~/Aufgabeworkflowdocker && head -n 1 ~/Aufgabeworkflowdocker/info.txt"
+            - name: Create folder on EC2
+              run: ssh -i ~/.ssh/meinPrivateKey ubuntu@${{ secrets.EC2_IP }} "mkdir -p ~/Aufgabeworkflowdocker"
 
+            - name: Copy file to EC2
+              run: scp -i ~/.ssh/meinPrivateKey Aufgabeworkflowdocker/info.txt ubuntu@${{ secrets.EC2_IP }}:~/Aufgabeworkflowdocker/info.txt
 
+            - name: Optional check
+              run: ssh -i ~/.ssh/meinPrivateKey ubuntu@${{ secrets.EC2_IP }} "ls -l ~/Aufgabeworkflowdocker && head -n 1 ~/Aufgabeworkflowdocker/info.txt"
