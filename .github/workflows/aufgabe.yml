@@ -1,0 +1,18 @@
+name: deploy
+
+on: push
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v5
+
+            - name: ssh setup
+              run: |
+               ssh -i ~/.ssh/meinPrivateKey ubuntu@${{secrets.EC2_IP}} "mkdir -p ~/Aufgabeworkflowdocker"
+               scp -i ~/.ssh/meinPrivateKey Aufgabeworkflowdocker/info.txt ubuntu@${{secrets.EC2_IP}}:~/Aufgabeworkflowdocker/info.txt
+               ssh -i ~/.ssh/meinPrivateKey ubuntu@${{secrets.EC2_IP}} "ls -l ~/Aufgabeworkflowdocker && head -n 1 ~/Aufgabeworkflowdocker/info.txt"
+
+
