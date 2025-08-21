@@ -18,8 +18,8 @@ jobs:
 
             - name: SSH connection
               run: |
-               ssh -i ~/.ssh/meinPrivateKey ubuntu@${{ secrets.EC2_IP }} "mkdir -p ~/meinOrdner"
-               scp -i ~/.ssh/meinPrivateKey meinOrdner/info.txt ubuntu@${{ secrets.EC2_IP }}:~/meinOrdner/info.txt
-               ssh -i ~/.ssh/meinPrivateKey ubuntu@${{ secrets.EC2_IP }} "ls -l ~/meinOrdner && head -n 1 ~/meinOrdner/info.txt"
+               ssh -i ~/.ssh/meinPrivateKey ubuntu@${{ secrets.EC2_IP }} "mkdir -p ~/Aufgabeworkflowdocker"
+               scp -i ~/.ssh/meinPrivateKey Aufgabeworkflowdocker/info.txt ubuntu@${{ secrets.EC2_IP }}:~/Aufgabeworkflowdocker/info.txt
+               ssh -i ~/.ssh/meinPrivateKey ubuntu@${{ secrets.EC2_IP }} "ls -l ~/Aufgabeworkflowdocker && head -n 1 ~/Aufgabeworkflowdocker/info.txt"
 
 
